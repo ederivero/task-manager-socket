@@ -1,9 +1,10 @@
 from config.bd import bd
 from sqlalchemy import Column, types
 from sqlalchemy.schema import ForeignKey
-from datetime import date, datetime
+from datetime import datetime
 
 
+# Declaracion del modelo Tarea con sus relaciones
 class TareaModel(bd.Model):
     __tablename__ = 't_tarea'
     tareaId = Column(

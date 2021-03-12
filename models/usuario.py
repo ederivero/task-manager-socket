@@ -1,7 +1,9 @@
 from sqlalchemy import Column, types
+from sqlalchemy.orm import relationship
 from config.bd import bd
 
 
+# Declaracion del modelo Usuario con sus relaciones inversas para poder ser accedidas desde la tabla hija
 class UsuarioModel(bd.Model):
     __tablename__ = "t_usuario"
     usuarioId = Column(
@@ -17,6 +19,7 @@ class UsuarioModel(bd.Model):
         type_=types.String(25),
         nullable=False
     )
+    tareas = relationship('TareaModel', backref='usuarioTareas')
 
     def __init__(self, nombre):
         self.usuarioNombre = nombre
