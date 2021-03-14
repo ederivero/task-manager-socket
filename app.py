@@ -6,7 +6,7 @@ from models.tarea import TareaModel
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit
 import os
-print(os.environ.get('prod'))
+print(os.environ.get('PROD'))
 # Inicializacion de variables
 app = Flask(__name__)
 # Habilitamos los cors para que pueda acceder el front
