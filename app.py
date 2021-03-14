@@ -5,6 +5,7 @@ from controllers.usuario import UsuarioController
 from models.tarea import TareaModel
 from flask_socketio import SocketIO, emit
 import os
+print(os.environ.get('prod'))
 # Inicializacion de variables
 app = Flask(__name__)
 # Configuracion de conexion a la bd en SQLITE -> https://www.sqlite.org/index.html
