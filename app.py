@@ -6,20 +6,23 @@ from models.tarea import TareaModel
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit
 import os
-print(os.environ.get('PROD'))
+
 # Inicializacion de variables
 app = Flask(__name__)
 # Habilitamos los cors para que pueda acceder el front
 CORS(app)
 # Configuracion de conexion a la bd en SQLITE -> https://www.sqlite.org/index.html
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////" + \
-    os.path.dirname(os.path.realpath(__file__))+'/db.db'
+if os.environ.get('PROD'):
+    app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://bf5bp3itfap51exm:puxzintx3wx76gjn@eyw6324oty5fsovx.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/my91gwa8ys5qm43s"
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////" + \
+        os.path.dirname(os.path.realpath(__file__))+'/db.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Configuracion de llave secreta para el uso de Socket's
 app.config['SECRET_KEY'] = 'secret'
 # Inicialización de objeto de clase Api para los servicios REST -> https://es.wikipedia.org/wiki/Transferencia_de_Estado_Representacional
 api = Api(app=app)
-
+print(app.config)
 # Conexión entre la base de datos y la aplicacion (proveyendo las credenciales de la linea 11)
 bd.init_app(app)
 
