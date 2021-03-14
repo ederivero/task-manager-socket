@@ -3,11 +3,14 @@ from config.bd import bd
 from flask_restful import Api
 from controllers.usuario import UsuarioController
 from models.tarea import TareaModel
+from flask_cors import CORS
 from flask_socketio import SocketIO, emit
 import os
 print(os.environ.get('prod'))
 # Inicializacion de variables
 app = Flask(__name__)
+# Habilitamos los cors para que pueda acceder el front
+CORS(app)
 # Configuracion de conexion a la bd en SQLITE -> https://www.sqlite.org/index.html
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////" + \
     os.path.dirname(os.path.realpath(__file__))+'/db.db'
