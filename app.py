@@ -14,7 +14,7 @@ app = Flask(__name__)
 CORS(app)
 # Configuracion de conexion a la bd en SQLITE -> https://www.sqlite.org/index.html
 if os.environ.get('PROD'):
-    app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://bf5bp3itfap51exm:puxzintx3wx76gjn@eyw6324oty5fsovx.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/my91gwa8ys5qm43s"
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('JAWSDB_URL')
 else:
     app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////" + \
         os.path.dirname(os.path.realpath(__file__))+'/db.db'
