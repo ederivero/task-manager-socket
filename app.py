@@ -76,7 +76,7 @@ def editar_tarea(data):
     emit('tareas', getTareasById(nuevaTarea['usuario']), broadcast=True)
 
 
-# Socket para devolver todas las tareas ni bien el usuario inicia sesión
+# Socket para devolver todas las tareas ni bien el usuario inicia sesión con su id
 @socketio.on('tareas')
 def coneccion(usuarioId):
     emit('tareas', getTareasById(usuarioId))
