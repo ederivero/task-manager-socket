@@ -82,6 +82,13 @@ def coneccion(usuarioId):
     emit('tareas', getTareasById(usuarioId))
 
 
+@app.route('/')
+def inicio():
+    return {
+        'message': 'Bienvenido a mi API de Webinar Task Manager😎'
+    }
+
+
 @app.route('/usuarios', methods=['GET'])
 def usuarios():
     usuarios = UsuarioModel.query.all()
