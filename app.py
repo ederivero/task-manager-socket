@@ -54,7 +54,7 @@ def nueva_tarea(tarea):
     TareaModel(titulo=tarea['titulo'], descripcion=tarea['descripcion'],
                estado=tarea['estado'], usuario=tarea['usuario']).save()
     getTareasById(tarea['usuario'])
-    emit('tareas', getTareasById(tarea['usuario']))
+    emit('tareas', getTareasById(tarea['usuario']), broadcast=True)
 
 
 # Socket para editar una tarea segun su id, la data debe ser:
@@ -73,7 +73,7 @@ def editar_tarea(data):
     tarea = TareaModel.query.filter_by(tareaId=data['id']).first()
     tarea.update(titulo=nuevaTarea['titulo'], descripcion=nuevaTarea['descripcion'],
                  estado=nuevaTarea['estado'], usuario=nuevaTarea['usuario'])
-    emit('tareas', getTareasById(nuevaTarea['usuario']))
+    emit('tareas', getTareasById(nuevaTarea['usuario']), broadcast=True)
 
 
 # Socket para devolver todas las tareas ni bien el usuario inicia sesión
