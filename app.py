@@ -1,7 +1,8 @@
 from flask import Flask, request
+from sqlalchemy.sql.expression import true
 from config.bd import bd
 from flask_restful import Api
-from controllers.usuario import UsuarioController
+from controllers.usuario import UsuarioController, UsuarioModel
 from models.tarea import TareaModel
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit
@@ -22,7 +23,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'secret'
 # Inicialización de objeto de clase Api para los servicios REST -> https://es.wikipedia.org/wiki/Transferencia_de_Estado_Representacional
 api = Api(app=app)
-print(app.config)
+
 # Conexión entre la base de datos y la aplicacion (proveyendo las credenciales de la linea 11)
 bd.init_app(app)
 
@@ -79,6 +80,19 @@ def editar_tarea(data):
 @socketio.on('tareas')
 def coneccion(usuarioId):
     emit('tareas', getTareasById(usuarioId))
+
+
+@app.route('/usuarios', methods=['GET'])
+def usuarios():
+    usuarios = UsuarioModel.query.all()
+    respuesta = []
+    for usuario in usuarios:
+        respuesta.append(usuario.json())
+    return {
+        'success': True,
+        'content': respuesta,
+        'message': None
+    }, 200
 
 
 if __name__ == '__main__':
